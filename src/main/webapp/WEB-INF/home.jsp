@@ -14,5 +14,13 @@
 <body>
 This is the home page! Welcome <c:if test="${not empty name}">${name}</c:if> <c:if test="${empty name}">Home!</c:if>
 Heello no 2: ${name2}
+${name3}
+${redirectName}
+<br><br><br>
+<c:if test="${not empty fname}">
+    Name: ${fname.name}
+    <br>
+    FamilyName: ${fname.familyName}
+</c:if>
 </body>
 </html>

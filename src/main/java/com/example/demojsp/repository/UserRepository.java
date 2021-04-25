@@ -10,4 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT new com.example.demojsp.model.UserDTO(u.name, u.age) FROM User u where u.id=?1")
     UserDTO getDtoById(Long id);
+
+    @Query("SELECT sum(user.age) as sumAge FROM User user WHERE sumAge > 100")
+    Long getUser();
 }

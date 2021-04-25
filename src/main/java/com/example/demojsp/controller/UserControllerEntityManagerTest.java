@@ -43,4 +43,9 @@ public class UserControllerEntityManagerTest {
         userFacility.save(user);
     }
 
+    @GetMapping("/users/modify-without-session")
+    public void modifyTest() {
+        userFacility.modify();
+    }
+
 }
