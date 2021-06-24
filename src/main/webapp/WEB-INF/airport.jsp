@@ -13,8 +13,18 @@
 </head>
 <body>
   <div>
-    <button><a href="/airport">Show Airports</a></button>
-    <button>User Management</button>
+    <table>
+      <tr>
+        <th>AirportId</th>
+        <th>Airport Name</th>
+      </tr>
+      <c:forEach items="${airports}" var="item">
+        <tr>
+          <td>${item.airportId}</td>
+          <td><a href="/runway?airportId=${item.airportId}">${item.airportName}</a></td>
+        </tr>
+      </c:forEach>
+    </table>
   </div>
 </body>
 </html>
