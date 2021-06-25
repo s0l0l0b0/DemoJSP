@@ -66,7 +66,8 @@ public class HomeController {
     public ModelAndView newRunway(@RequestParam Long airportId){
         Optional<Airport> airport = airportRepository.findById(airportId);
         return new ModelAndView("newRunway")
-            .addObject("airport", airport.get());
+            .addObject("airport", airport.get())
+            .addObject("operation", "New");
     }
 
 
@@ -82,8 +83,38 @@ public class HomeController {
         } else {
             airportRunwayRepository.save(airportRunway);
         }
-
     }
 
+    @GetMapping("/editRunway")
+    public ModelAndView editRunway(@RequestParam Long runwayNo){
+        Optional<AirportRunway> aOptional = airportRunwayRepository.findById(runwayNo);
+        ModelAndView modelAndView = new ModelAndView("newRunway");
+        if(aOptional.isPresent()) {
+            AirportRunway runway = aOptional.get();
+            Airport airport = runway.getAirport();
+            modelAndView.addObject("runway", runway);
+            modelAndView.addObject("airport", airport);
+            RunwaySurface runwaySurface = runway.getRunwaySurface();
+            if(Objects.nonNull(runwaySurface)) {
+                modelAndView.addObject("runwaySurface", runwaySurface);
+            }
+        }
 
+        modelAndView.addObject("operation", "Edit");
+        return modelAndView;
+    }
+
+    @GetMapping("/deleteRunway")
+    public ModelAndView deleteRunway(@RequestParam Long runwayNo) {
+        Optional<AirportRunway> findById = airportRunwayRepository.findById(runwayNo);
+        if (findById.isPresent()) {
+            AirportRunway airportRunway = findById.get();
+            Airport airport = airportRunway.getAirport();
+            airportRunwayRepository.deleteById(runwayNo);
+            return new ModelAndView("redirect:/runway?airportId=" + airport.getAirportId());
+        }
+        return new ModelAndView("redirect:/");
+       
+    }
+    
 }

@@ -1,5 +1,6 @@
 package com.example.demojsp.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -29,7 +30,7 @@ public class AirportRunway {
     @JoinColumn(name = "AIRPORT_ID")
     Airport airport;
 
-    @OneToOne(mappedBy = "airportRunway")
+    @OneToOne(mappedBy = "airportRunway",cascade = CascadeType.REMOVE)
     RunwaySurface runwaySurface;
 
     public Long getRunwayNo() {

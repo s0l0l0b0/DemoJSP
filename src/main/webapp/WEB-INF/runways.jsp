@@ -65,7 +65,8 @@
           <td>${item.runwayWidth}</td>
           <td>${item.runwaySurface.surfaceType}</td>
           <td>${item.runwaySurface.surfaceCondition}</td>
-          <td><a class="button">Edit</a></td>
+          <td><a class="button" href="/editRunway?runwayNo=${item.runwayNo}">Edit</a></td>
+          <td><a class="button" href="/deleteRunway?runwayNo=${item.runwayNo}">Delete</a></td>
         </tr>
       </c:forEach>
       </tbody>
