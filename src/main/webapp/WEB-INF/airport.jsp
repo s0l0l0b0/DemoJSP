@@ -12,8 +12,11 @@
     <title>Home Page</title>
     <style>
       table, th, td {
-  border: 1px solid black;
-}
+        border: 1px solid black;
+      }
+      table {
+        width: 100%;
+      }
     </style>
 </head>
 <body>
@@ -27,6 +30,7 @@
         <tr>
           <td>${item.airportId}</td>
           <td><a href="/runway?airportId=${item.airportId}">${item.airportName}</a></td>
+          <td><button>Edit</button></td>
         </tr>
       </c:forEach>
     </table>

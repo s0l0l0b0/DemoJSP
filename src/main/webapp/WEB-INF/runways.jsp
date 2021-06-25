@@ -12,26 +12,49 @@
     <title>Home Page</title>
     <style>
       table, th, td {
-  border: 1px solid black;
-}
+        border: 1px solid black;
+      }
+      table {
+        width: 100%;
+      }
+      .button {
+        display: block;
+        width: 45px;
+        height:15px;
+        background: #000000;
+        padding: 10px;
+        text-align: center;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+        line-height: 25px;
+        cursor: pointer;
+      }
     </style>
 </head>
 <body>
   <div>
     This is the runway page
     <table>
-      <tr>
+      <thead>
         <th>Runway No</th>
         <th>Length</th>
         <th>Width</th>
-      </tr>
+        <th>Surface Type</th>
+        <th>Surface Condition</th>
+      </thead>
+      <tbody>
       <c:forEach items="${runways}" var="item">
         <tr>
           <td>${item.runwayNo}</td>
           <td>${item.runwayLength}</td>
           <td>${item.runwayWidth}</td>
+          <td>${item.runwaySurface.surfaceType}</td>
+          <td>${item.runwaySurface.surfaceCondition}</td>
+          <td><a class="button">Edit</a></td>
         </tr>
       </c:forEach>
+      </tbody>
     </table>
   </div>
 </body>

@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class AirportRunway {
@@ -27,6 +28,9 @@ public class AirportRunway {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AIRPORT_ID")
     Airport airport;
+
+    @OneToOne(mappedBy = "airportRunway")
+    RunwaySurface runwaySurface;
 
     public Long getRunwayNo() {
         return runwayNo;
@@ -59,4 +63,14 @@ public class AirportRunway {
     public void setAirport(Airport airport) {
         this.airport = airport;
     }
+
+    public RunwaySurface getRunwaySurface() {
+        return runwaySurface;
+    }
+
+    public void setRunwaySurface(RunwaySurface runwaySurface) {
+        this.runwaySurface = runwaySurface;
+    }
+
+
 }
