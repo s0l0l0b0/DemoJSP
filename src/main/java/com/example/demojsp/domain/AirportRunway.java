@@ -72,5 +72,13 @@ public class AirportRunway {
         this.runwaySurface = runwaySurface;
     }
 
+    @Override
+    public String toString() {
+        return "AirportRunway [airport=" + airport + ", runwayLength=" + runwayLength + ", runwayNo=" + runwayNo
+                + ", runwaySurface=" + runwaySurface + ", runwayWidth=" + runwayWidth + "]";
+    }
+
+    
+
 
 }

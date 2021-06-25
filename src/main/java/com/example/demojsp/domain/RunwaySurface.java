@@ -60,4 +60,12 @@ public class RunwaySurface {
     public void setAirportRunway(AirportRunway airportRunway) {
         this.airportRunway = airportRunway;
     }
+
+    @Override
+    public String toString() {
+        return "RunwaySurface [airportRunway=" + airportRunway + ", runwayNo=" + runwayNo + ", surfaceCondition="
+                + surfaceCondition + ", surfaceType=" + surfaceType + "]";
+    }
+
+    
 }
