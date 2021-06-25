@@ -10,6 +10,11 @@
 <html>
 <head>
     <title>Home Page</title>
+    <style>
+      table, th, td {
+  border: 1px solid black;
+}
+    </style>
 </head>
 <body>
   <div>
