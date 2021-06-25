@@ -26,7 +26,7 @@ public class AirportRunway {
     @Column(name = "RUNWAY_WIDTH", nullable = false)
     Double runwayWidth;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "AIRPORT_ID")
     Airport airport;
 

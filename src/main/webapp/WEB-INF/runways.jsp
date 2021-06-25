@@ -44,8 +44,8 @@
     ${airport.airportName}
     <div class="top-panel">
     <a class="button" href="/newRunway?airportId=${airport.airportId}">New Entry</a>
-    <a class="button">Home</a>
-    <a class="button">Back</a>
+    <a class="button" a href="/" >Home</a>
+    <a class="button" a href="airport">Back</a>
     </div>
 
 

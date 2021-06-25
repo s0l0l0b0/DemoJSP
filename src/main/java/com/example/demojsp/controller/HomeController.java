@@ -1,5 +1,6 @@
 package com.example.demojsp.controller;
 
+import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -10,15 +11,14 @@ import com.example.demojsp.domain.RunwaySurface;
 import com.example.demojsp.repository.AirportRepository;
 import com.example.demojsp.repository.AirportRunwayRepository;
 import com.example.demojsp.repository.RunwaySurfaceRepository;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class HomeController {
@@ -113,8 +113,41 @@ public class HomeController {
             airportRunwayRepository.deleteById(runwayNo);
             return new ModelAndView("redirect:/runway?airportId=" + airport.getAirportId());
         }
-        return new ModelAndView("redirect:/");
-       
+        return new ModelAndView("redirect:/");  
     }
+
+
+    @GetMapping("/newAirport")
+    public ModelAndView newAriport(){
+        return new ModelAndView("newAirport")
+            .addObject("operation", "New");
+    }
+
+    @PostMapping(value="/newAirport")
+    public ModelAndView postNewAirport(Airport airport) {
+        airportRepository.save(airport);
+        return new ModelAndView("redirect:/airport");
+    }
+
+
+    @GetMapping("/editAirport")
+    public ModelAndView editAirport(@RequestParam Long airportId){
+        Optional<Airport> aOptional = airportRepository.findById(airportId);
+        ModelAndView modelAndView = new ModelAndView("newAirport");
+        if(aOptional.isPresent()) {
+            modelAndView.addObject("newAirport", aOptional.get());
+        }
+        modelAndView.addObject("operation", "Edit");
+        return modelAndView;
+    }
+    
+
+    @GetMapping("/deleteAirport")
+    public ModelAndView deleteAirport(@RequestParam Long airportId){
+        airportRepository.deleteById(airportId);
+        return new ModelAndView("redirect:/airport");
+
+    }
+    
     
 }
