@@ -1,6 +1,5 @@
 package com.example.demojsp.controller;
 
-import java.lang.StackWalker.Option;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -32,13 +30,8 @@ public class HomeController {
     @Autowired
     RunwaySurfaceRepository runwaySurfaceRepository;
 
-    @GetMapping("/")
-    public ModelAndView home() {
-        return new ModelAndView("home");
-        }
-
-    
-    @GetMapping("/airport")
+       
+    @GetMapping({"/","/airport"})
     public ModelAndView airport() {
         List<Airport> findAll = airportRepository.findAll();
         return new ModelAndView("airport")
@@ -47,7 +40,7 @@ public class HomeController {
 
 
     @GetMapping("/runway")
-    public ModelAndView runway(@RequestParam(required=false) Long airportId) {
+    public ModelAndView runway(@RequestParam Long airportId) {
         Optional<Airport> airportOptional = airportRepository.findById(airportId);
         if(airportOptional.isPresent()) {
             Airport airport = airportOptional.get();
@@ -67,12 +60,12 @@ public class HomeController {
         Optional<Airport> airport = airportRepository.findById(airportId);
         return new ModelAndView("newRunway")
             .addObject("airport", airport.get())
-            .addObject("operation", "New");
+            .addObject("operation", "NEW");
     }
 
 
     @PostMapping("/newRunway")
-    public void postRunway(AirportRunway airportRunway, RunwaySurface runwaySurface) {
+    public ModelAndView postRunway(AirportRunway airportRunway, RunwaySurface runwaySurface) {
 
         if(Objects.nonNull(runwaySurface) && 
             !runwaySurface.getSurfaceType().isBlank() ||
@@ -83,6 +76,8 @@ public class HomeController {
         } else {
             airportRunwayRepository.save(airportRunway);
         }
+
+        return new ModelAndView("redirect:/runway?airportId=" + airportRunway.getAirport().getAirportId());
     }
 
     @GetMapping("/editRunway")
@@ -100,7 +95,7 @@ public class HomeController {
             }
         }
 
-        modelAndView.addObject("operation", "Edit");
+        modelAndView.addObject("operation", "EDIT");
         return modelAndView;
     }
 
@@ -120,7 +115,7 @@ public class HomeController {
     @GetMapping("/newAirport")
     public ModelAndView newAriport(){
         return new ModelAndView("newAirport")
-            .addObject("operation", "New");
+            .addObject("operation", "NEW");
     }
 
     @PostMapping(value="/newAirport")
@@ -137,7 +132,7 @@ public class HomeController {
         if(aOptional.isPresent()) {
             modelAndView.addObject("newAirport", aOptional.get());
         }
-        modelAndView.addObject("operation", "Edit");
+        modelAndView.addObject("operation", "EDIT");
         return modelAndView;
     }
     
